@@ -1,13 +1,80 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 15.5px;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+input, select, textarea {
+  border-radius: 6px;
+  border: 1.2px solid var(--border-color);
+  font-size: 1em;
+  padding: 8.5px 11px;
+  transition: border 0.16s, background 0.13s;
+  outline: none;
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  margin: 4px 0;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+  background: var(--bg-secondary);
+}
+input[disabled], select[disabled], textarea[disabled] {
+  background: #ececec;
+  color: #b8b8b8;
+}
+
+/* Special tables (from App.css) – allow component-scoped class override of font/heading/colors if needed. */
+.customer-table, .invoice-table, .balance-table {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  border-collapse: collapse;
+  margin-top: 1em;
+  font-size: 1em;
+  background: var(--bg-elevated);
+  box-shadow: 0 1.5px 7px #e6eefd26;
+}
+.customer-table th, .invoice-table th, .balance-table th {
+  background: var(--bg-secondary, #f5f8fa);
+  color: var(--primary);
+  font-weight: 700;
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--border-color);
+}
+.customer-table td, .invoice-table td, .balance-table td {
+  padding: 8px 14px;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+.customer-table tr:nth-child(even),
+.invoice-table tr:nth-child(even),
+.balance-table tr:nth-child(even) {
+  background: var(--bg-secondary, #f5f8fa);
+}
+
+.customer-table tr:focus-within,
+.invoice-table tr:focus-within,
+.balance-table tr:focus-within {
+  background: var(--accent);
+  color: #fff;
+}
+
+@media (max-width: 750px) {
+  .customer-table, .invoice-table, .balance-table {
+    font-size: .97em;
+  }
+  .customer-table th, .invoice-table th, .balance-table th, 
+  .customer-table td, .invoice-table td, .balance-table td  {
+    padding: 7px 6px;
+  }
 }

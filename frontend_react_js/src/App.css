@@ -102,3 +102,38 @@
     font-size: 12px;
   }
 }
+
+/* === Multi-panel App Layout === */
+.main-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  background: var(--bg-primary);
+}
+
+.main-content-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--bg-primary);
+}
+
+.main-content {
+  flex: 1;
+  padding: 24px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+/* Responsive: collapse sidebar for narrow screens */
+@media (max-width: 900px) {
+  .main-root {
+    flex-direction: row;
+  }
+  .main-content {
+    padding: 10px;
+  }
+}

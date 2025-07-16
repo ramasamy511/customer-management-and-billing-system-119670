@@ -18,15 +18,19 @@ describe("InvoiceList", () => {
     render(<InvoiceList invoices={invoices} onCreate={jest.fn()} onView={jest.fn()} />);
     expect(screen.getByText("INV1")).toBeInTheDocument();
     expect(screen.getByText("Bob")).toBeInTheDocument();
-    expect(screen.getAllByText("View").length).toBe(2);
+    // Use role for all "View" buttons
+    const viewButtons = screen.getAllByRole('button', { name: /view/i });
+    expect(viewButtons.length).toBe(2);
   });
 
   it("calls onCreate and onView when buttons clicked", () => {
     const onCreate = jest.fn(), onView = jest.fn();
     render(<InvoiceList invoices={invoices} onCreate={onCreate} onView={onView} />);
-    fireEvent.click(screen.getByText("Create Invoice"));
+    fireEvent.click(screen.getByRole('button', { name: /create invoice/i }));
     expect(onCreate).toHaveBeenCalled();
-    fireEvent.click(screen.getAllByText("View")[1]);
+    // Second "View" button is for id:2
+    const viewBtns = screen.getAllByRole('button', { name: /view/i });
+    fireEvent.click(viewBtns[1]);
     expect(onView).toHaveBeenCalledWith(2);
   });
 

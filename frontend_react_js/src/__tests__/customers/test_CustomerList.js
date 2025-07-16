@@ -34,9 +34,15 @@ describe("CustomerList", () => {
     require("../../api").fetchCustomers.mockResolvedValueOnce(mockCustomers);
 
     render(<CustomerList onView={onView} onEdit={onEdit} />);
-    fireEvent.click(await screen.findByText("View"));
+    // Use getAllByRole and specify row to disambiguate buttons
+    const rows = await screen.findAllByRole('row');
+    // "View" button for first row
+    const viewButtons = screen.getAllByRole('button', { name: /view/i });
+    fireEvent.click(viewButtons[0]);
     expect(onView).toHaveBeenCalledWith(1);
-    fireEvent.click(screen.getAllByText("Edit")[0]);
+    // "Edit" button for first row
+    const editButtons = screen.getAllByRole('button', { name: /edit/i });
+    fireEvent.click(editButtons[0]);
     expect(onEdit).toHaveBeenCalledWith(1);
   });
 

@@ -18,8 +18,8 @@ describe("CustomerView", () => {
   it("fires onEdit and onBack if passed", () => {
     const onEdit = jest.fn(), onBack = jest.fn();
     render(<CustomerView customer={sample} onEdit={onEdit} onBack={onBack} />);
-    fireEvent.click(screen.getByText("Edit"));
-    fireEvent.click(screen.getByText("Back"));
+    fireEvent.click(screen.getByRole('button', { name: /edit/i }));
+    fireEvent.click(screen.getByRole('button', { name: /back/i }));
     expect(onEdit).toHaveBeenCalledWith(77);
     expect(onBack).toHaveBeenCalled();
   });

@@ -27,29 +27,55 @@ function PaymentEntry({ customers = [], invoices = [], onSave, onCancel }) {
     <form onSubmit={handleSubmit}>
       <h3>Record Payment</h3>
       <div>
-        <select name="customerId" value={form.customerId} onChange={handleChange} required>
+        <label htmlFor="payment-entry-customer">Customer</label>
+        <select
+          id="payment-entry-customer"
+          name="customerId"
+          value={form.customerId}
+          onChange={handleChange}
+          required
+          aria-label="Customer"
+        >
           <option value="">Select customer</option>
           {customers.map(c => <option value={c.id} key={c.id}>{c.name}</option>)}
         </select>
       </div>
       <div>
-        <select name="invoiceId" value={form.invoiceId} onChange={handleChange}>
+        <label htmlFor="payment-entry-invoice">Invoice</label>
+        <select
+          id="payment-entry-invoice"
+          name="invoiceId"
+          value={form.invoiceId}
+          onChange={handleChange}
+          aria-label="Invoice"
+        >
           <option value="">Select invoice (optional)</option>
           {invoices.map(inv => <option value={inv.id} key={inv.id}>{inv.invoiceNumber}</option>)}
         </select>
       </div>
       <div>
+        <label htmlFor="payment-entry-amount">Amount</label>
         <input
+          id="payment-entry-amount"
           name="amount"
           type="number"
           value={form.amount}
           onChange={handleChange}
           placeholder="Amount"
           required
+          aria-label="Amount"
         />
       </div>
       <div>
-        <select name="method" value={form.method} onChange={handleChange} required>
+        <label htmlFor="payment-entry-method">Payment Method</label>
+        <select
+          id="payment-entry-method"
+          name="method"
+          value={form.method}
+          onChange={handleChange}
+          required
+          aria-label="Payment method"
+        >
           <option value="">Payment method</option>
           <option value="cash">Cash</option>
           <option value="card">Card</option>

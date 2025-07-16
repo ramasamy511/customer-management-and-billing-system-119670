@@ -29,6 +29,7 @@ function RemindersSend({ customers = [], onSendReminders }) {
                 type="checkbox"
                 checked={selectedIds.includes(c.id)}
                 onChange={() => toggleChecked(c.id)}
+                aria-label={`Select ${c.name} (${c.email}) for reminder`}
               />
               {c.name} ({c.email})
             </label>

@@ -26,11 +26,14 @@ function InvoiceCreate({ customers = [], onSave, onCancel }) {
     <form onSubmit={handleSubmit}>
       <h3>Create Invoice</h3>
       <div>
+        <label htmlFor="invoice-create-customer">Customer</label>
         <select
+          id="invoice-create-customer"
           name="customerId"
           value={form.customerId}
           onChange={handleChange}
           required
+          aria-label="Customer"
         >
           <option value="">Select customer</option>
           {customers.map(c => <option value={c.id} key={c.id}>{c.name}</option>)}
@@ -41,22 +44,28 @@ function InvoiceCreate({ customers = [], onSave, onCancel }) {
         <small>Item entry UI for line items will go here</small>
       </div>
       <div>
+        <label htmlFor="invoice-create-date">Date</label>
         <input
+          id="invoice-create-date"
           name="date"
           type="date"
           value={form.date}
           onChange={handleChange}
           required
+          aria-label="Invoice date"
         />
       </div>
       <div>
+        <label htmlFor="invoice-create-total">Total Amount</label>
         <input
+          id="invoice-create-total"
           name="totalAmount"
           type="number"
           value={form.totalAmount}
           onChange={handleChange}
           placeholder="Total Amount"
           required
+          aria-label="Total amount"
         />
       </div>
       <div style={{ marginTop: 12 }}>

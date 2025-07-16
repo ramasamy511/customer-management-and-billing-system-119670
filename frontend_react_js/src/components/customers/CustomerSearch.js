@@ -9,7 +9,9 @@ function CustomerSearch({ onSearch }) {
   const [query, setQuery] = useState("");
   return (
     <div style={{ marginBottom: 16 }}>
+      <label htmlFor="customer-search-input">Search</label>
       <input
+        id="customer-search-input"
         type="text"
         value={query}
         onChange={e => {
@@ -18,6 +20,7 @@ function CustomerSearch({ onSearch }) {
         }}
         placeholder="Search customers by name, company, or email…"
         style={{ padding: 8, minWidth: 250 }}
+        aria-label="Customer search"
       />
     </div>
   );

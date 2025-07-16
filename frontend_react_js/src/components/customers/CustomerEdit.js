@@ -21,13 +21,19 @@ function CustomerEdit({ customer, onSave, onCancel }) {
     <form onSubmit={handleSubmit}>
       <h3>{customer?.id ? "Edit Customer" : "Add Customer"}</h3>
       <div>
-        <input name="name" value={form.name} onChange={handleChange} placeholder="Full Name" required />
+        <label htmlFor="customer-edit-name">Name</label>
+        <input id="customer-edit-name" name="name" value={form.name}
+          onChange={handleChange} placeholder="Full Name" required aria-label="Customer name" />
       </div>
       <div>
-        <input name="email" value={form.email} onChange={handleChange} placeholder="Email" type="email" required />
+        <label htmlFor="customer-edit-email">Email</label>
+        <input id="customer-edit-email" name="email" value={form.email}
+          onChange={handleChange} placeholder="Email" type="email" required aria-label="Customer email" />
       </div>
       <div>
-        <input name="company" value={form.company} onChange={handleChange} placeholder="Company" />
+        <label htmlFor="customer-edit-company">Company</label>
+        <input id="customer-edit-company" name="company" value={form.company}
+          onChange={handleChange} placeholder="Company" aria-label="Customer company" />
       </div>
       <div style={{ marginTop: 12 }}>
         <button type="submit">Save</button>

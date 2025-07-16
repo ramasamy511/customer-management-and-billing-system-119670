@@ -84,6 +84,77 @@
   transform: translateY(0);
 }
 
+/* minimalist cards, buttons, page-title enhancements */
+.card {
+  background: var(--bg-secondary, #f8f9fa);
+  border-radius: 18px;
+  padding: 22px 28px 22px 28px;
+  margin-bottom: 32px;
+  box-shadow: 0 6px 28px -7px rgba(28,28,48,.08);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+label {
+  display: block;
+  margin-top: 14px;
+  font-weight: 500;
+  color: var(--primary, #1976d2);
+}
+input, select {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  font-size: 1rem;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+}
+input:focus, select:focus {
+  outline: 2px solid var(--primary);
+}
+
+.btn {
+  background: var(--primary, #1976d2);
+  color: var(--button-text,#fff);
+  border: none;
+  border-radius: 6px;
+  padding: 7px 22px;
+  margin: 2px 0;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+.btn:hover {
+  background: var(--brand-accent, #e91e63);
+}
+.btn-large {
+  font-size: 1.2rem;
+  padding: 12px 30px;
+}
+
+.page-title {
+  font-size: 2rem;
+  color: var(--primary, #1976d2);
+  font-weight: 900;
+  margin-bottom: 24px;
+}
+table {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color,#e9ecef);
+  margin-bottom: 20px;
+}
+th, td {
+  padding: 13px 10px;
+  border-bottom: 1px solid var(--border-color,#e9ecef);
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

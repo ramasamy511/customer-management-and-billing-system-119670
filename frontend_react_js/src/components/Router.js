@@ -15,7 +15,10 @@ import {
   fetchBalanceSheet,
   exportBalanceToPDF,
   exportBalanceToExcel,
-  sendPaymentReminders
+  sendPaymentReminders,
+  fetchCustomerById,
+  updateCustomer,
+  createCustomer
 } from "../api";
 
 import { CustomerList, CustomerEdit, CustomerView } from "./customers";
@@ -34,34 +37,38 @@ function CustomersModule() {
   const [customers, setCustomers] = useState([]);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
 
-  // Load all customers
+  // Load all customers (real backend)
   useEffect(() => {
     fetchCustomers().then(setCustomers);
   }, []);
 
-  // View details
-  const handleView = id => {
+  // View details (fetch real data)
+  const handleView = async (id) => {
     setViewId(id);
     setPage("view");
-    setSelectedCustomer(customers.find(c => c.id === id));
+    const customer = await fetchCustomerById(id);
+    setSelectedCustomer(customer);
   };
 
-  // Edit details
-  const handleEdit = id => {
+  // Edit details (fetch real data)
+  const handleEdit = async (id) => {
     setEditId(id);
     setPage("edit");
-    setSelectedCustomer(customers.find(c => c.id === id));
+    const customer = await fetchCustomerById(id);
+    setSelectedCustomer(customer);
   };
 
-  // Save handler (create/update)
-  const handleSave = async data => {
+  // Save handler (create/update via api.js)
+  const handleSave = async (data) => {
     if (editId) {
-      await updateInvoice(editId, data);
+      await updateCustomer(editId, data);
     } else {
-      await createInvoice(data);
+      await createCustomer(data);
     }
     setPage("list");
     fetchCustomers().then(setCustomers);
+    setEditId(null);
+    setSelectedCustomer(null);
   };
 
   if (page === "edit") {
@@ -69,7 +76,11 @@ function CustomersModule() {
       <CustomerEdit
         customer={selectedCustomer}
         onSave={handleSave}
-        onCancel={() => setPage("list")}
+        onCancel={() => {
+          setPage("list");
+          setEditId(null);
+          setSelectedCustomer(null);
+        }}
       />
     );
   }
@@ -78,7 +89,11 @@ function CustomersModule() {
       <CustomerView
         customer={selectedCustomer}
         onEdit={handleEdit}
-        onBack={() => setPage("list")}
+        onBack={() => {
+          setPage("list");
+          setViewId(null);
+          setSelectedCustomer(null);
+        }}
       />
     );
   }
@@ -90,24 +105,24 @@ function CustomersModule() {
   );
 }
 
-// --- Billing / Invoices Module ---
+/* --- Billing / Invoices Module --- */
 function InvoicesModule() {
   const [page, setPage] = useState("list");
   const [invoices, setInvoices] = useState([]);
   const [selectedInvoice, setSelectedInvoice] = useState(null);
 
-  // For "create" invoice form: fetch customers
   const [customers, setCustomers] = useState([]);
+
+  // Load invoices and customer data from backend
   useEffect(() => {
     fetchInvoices().then(setInvoices);
     fetchCustomers().then(setCustomers);
   }, []);
 
-  const handleView = id => {
-    fetchInvoiceById(id).then(inv => {
-      setSelectedInvoice(inv);
-      setPage("view");
-    });
+  const handleView = async (id) => {
+    const invoice = await fetchInvoiceById(id);
+    setSelectedInvoice(invoice);
+    setPage("view");
   };
 
   const handleCreate = () => setPage("create");
@@ -144,13 +159,14 @@ function InvoicesModule() {
   );
 }
 
-// --- Payments Module ---
+/* --- Payments Module --- */
 function PaymentsModule() {
   const [page, setPage] = useState("entry");
   const [customers, setCustomers] = useState([]);
   const [invoices, setInvoices] = useState([]);
   const [payments, setPayments] = useState([]);
 
+  // Fetch actual data from backend via API
   useEffect(() => {
     fetchCustomers().then(setCustomers);
     fetchInvoices().then(setInvoices);
@@ -172,7 +188,7 @@ function PaymentsModule() {
         onSave={handleSavePayment}
         onCancel={() => setPage("entry")}
       />
-      {/* Could show a table of recent payments here */}
+      {/* Could show a table of recent payments here (could add PaymentList fetched from api.js) */}
       {/* <PaymentList payments={payments} /> */}
       {/* Could have PaymentMethods tab in future */}
     </>
@@ -188,13 +204,13 @@ function BalanceSheetModule() {
 
   const handleExportPDF = () => {
     exportBalanceToPDF().then((res) => {
-      // Handle res (likely a binary or URL for download); this is scaffold logic.
-      alert("Balance Sheet PDF export triggered (see backend output)");
+      // Suggest: trigger file download once backend sends a file/URL
+      alert("Balance Sheet PDF export triggered (see backend output or download)");
     });
   };
   const handleExportExcel = () => {
     exportBalanceToExcel().then((res) => {
-      alert("Balance Sheet Excel export triggered (see backend output)");
+      alert("Balance Sheet Excel export triggered (see backend output or download)");
     });
   };
   return (
